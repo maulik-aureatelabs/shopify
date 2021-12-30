@@ -35,11 +35,15 @@ const params: UseUserFactoryParams<User, any, any> = {
     console.log('Mocked: updateUser');
     const token = context.$shopify.config.app.$cookies.get('token');
     await context.$shopify.api.editProfile({
-      token: token,
-      profile: { email: updatedUserData.email,
-        firstName: updatedUserData.firstName,
-        lastName: updatedUserData.lastName
-      }});
+      token,
+      profile: {
+        email: updatedUserData.email ? updatedUserData.email : '',
+        firstName: updatedUserData.firstName ? updatedUserData.firstName : '',
+        lastName: updatedUserData.lastName ? updatedUserData.lastName : '',
+        acceptsMarketing: updatedUserData.acceptsMarketing ? updatedUserData.acceptsMarketing : false,
+        phone: updatedUserData.phone ? updatedUserData.phone : null
+      }
+    });
     return {};
   },
 
